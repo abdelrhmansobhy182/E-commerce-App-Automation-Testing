@@ -5,10 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
+public class P02_login {
     WebDriver driver;
 
-    public LoginPage (WebDriver driver){
+    public P02_login(WebDriver driver){
         this.driver=driver;
         PageFactory.initElements(driver,this);
     }
@@ -24,6 +24,7 @@ public class LoginPage {
 
         return driver.findElement(By.className("login-button"));
     }
+
 
 
     public void loginFun(String username, String password) throws InterruptedException {

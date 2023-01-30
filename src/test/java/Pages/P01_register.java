@@ -6,10 +6,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-public class registerPage {
+public class P01_register {
     WebDriver driver;
 
-    public registerPage(WebDriver driver){
+    public P01_register(WebDriver driver){
         this.driver=driver;
         PageFactory.initElements(driver,this);
     }
@@ -62,7 +62,7 @@ public class registerPage {
         return driver.findElement(By.id("ConfirmPassword"));
     }
 
-    public void registerData(char gender  ,String firstName, String lastName,String day, String month, String year, String email, String pass, String confirmPass){
+    public void registerData(char gender  ,String firstName, String lastName,String day, String month, String year, String email, String pass, String confirmPass) throws InterruptedException {
         getGender(gender).click();
         getFirstName().sendKeys(firstName);
         getLastName().sendKeys(lastName);
@@ -77,6 +77,7 @@ public class registerPage {
         getConfirmPassword().sendKeys(confirmPass);
 
         driver.findElement(By.id("register-button")).click();
+        Thread.sleep(3000);
     }
 
 

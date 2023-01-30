@@ -1,7 +1,6 @@
 package StepDefinitions;
 
-import Pages.registerPage;
-import io.cucumber.java.After;
+import Pages.P01_register;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -12,10 +11,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class register {
+public class D01_registerStepDef {
 
     public WebDriver driver=null;
-    registerPage register;
+    P01_register register;
     @Given("user open browser for register")
     public void userOpenBrowser() throws InterruptedException {
         String ChromPath = System.getProperty("user.dir") + "\\src\\main\\resources\\chromedriver.exe";
@@ -24,7 +23,9 @@ public class register {
         driver= new ChromeDriver();
         driver.manage().window().maximize();
         Thread.sleep(3000);
-        register=new registerPage(driver);
+        Hooks.driver=driver;
+        register=new P01_register(driver);
+
     }
     @And("user navigates to register page")
     public void navigateToRegisterPage() throws InterruptedException {
@@ -37,7 +38,7 @@ public class register {
     }
 
     @When ("user enter valid data and click on register")
-    public void register_ValidData(){
+    public void register_ValidData() throws InterruptedException {
         System.out.println("register_ValidData");
         register.registerData('m',"Abdelrahman","Sobhy",
                 "18","2","2000","abdosobhy18220@gmail.com","123456","123456");

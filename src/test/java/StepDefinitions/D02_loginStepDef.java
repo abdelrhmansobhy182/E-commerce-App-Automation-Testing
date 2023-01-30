@@ -1,6 +1,6 @@
 package StepDefinitions;
 
-import Pages.LoginPage;
+import Pages.P02_login;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,12 +10,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.Color;
+import org.testng.asserts.SoftAssert;
 
-public class Login {
+public class D02_loginStepDef {
 
 
         public static   WebDriver driver=null;
-        LoginPage login;
+        P02_login login;
+
+
+        SoftAssert softAssert =new SoftAssert() ;
 
         @Given("user open browser")
         public void userOpenBrowser() throws InterruptedException {
@@ -25,7 +30,8 @@ public class Login {
             driver= new ChromeDriver();
             driver.manage().window().maximize();
             Thread.sleep(3000);
-            login =new LoginPage(driver);
+            Hooks.driver=driver;
+            login =new P02_login(driver);
 
         }
         @And("user navigates to login page")
@@ -39,15 +45,29 @@ public class Login {
 
         @When("^user enter \"(.*)\" and \"(.*)\" then click on login button$")
         public void loginWithValidUsernameAndPassword(String userName, String pass) throws InterruptedException {
-            login.loginFun(userName, pass);
+        login.loginFun(userName, pass);
 
         }
 
         @Then("user could login successfully to the home page")
         public void successLogin_goToHomePage(){
-            Assert.assertEquals(driver.getCurrentUrl().contains("https://demo.nopcommerce.com/"),true);
+            softAssert.assertTrue(driver.getCurrentUrl().contains("https://demo.nopcommerce.com/"));
         }
 
+
+        @Then("user could not login to the system")
+        public void user_cannot_login_successfully_to_the_home_page() {
+            String Expected = "Login was unsuccessful. Please correct the errors and try again.";
+            WebElement Message = driver.findElement(By.className("message-error"));
+            String Actual = Message.getText();
+            ////////////////
+            String s = Message.getCssValue("color");
+            String c = Color.fromString(s).asHex();
+            System.out.println("color : " + c);
+            softAssert.assertTrue(c.contains("#e4434b"));
+            softAssert.assertTrue(Actual.contains(Expected));
+            softAssert.assertAll();
+        }
 
         @When ("user click on forgot password")
         public void clickForgotPassword(){
