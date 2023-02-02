@@ -79,7 +79,7 @@ public class D02_loginStepDef {
         }
         @And ("user enter his valid mail then click recover button")
         public void enterValidMail(){
-            login.resetPassword("abdosobhy18220@gmail.com");
+            login.resetPassword("abdosobhy18@gmail.com");
             driver.findElement(By.name("send-email")).click();
         }
         @Then ("reset mail should be sent to user")

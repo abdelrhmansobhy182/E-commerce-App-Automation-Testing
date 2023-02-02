@@ -41,7 +41,7 @@ public class D01_registerStepDef {
     public void register_ValidData() throws InterruptedException {
         System.out.println("register_ValidData");
         register.registerData('m',"Abdelrahman","Sobhy",
-                "18","2","2000","abdosobhy18220@gmail.com","123456","123456");
+                "18","2","2000","abdosobhy18@gmail.com","123456","123456");
     }
 
     @Then("user could register successfully")
